@@ -23,10 +23,33 @@
     <script src="scripts/app.js"></script>
   </head>
   <body>
-    <div id="main">
-      <h1>chatterbox</h1>
+      <div id="main">
+        <h1>Chatterbox</h1>
+        <div class="dropdown"> Rooms:
+        <button onclick="myFunction()" class="dropbtn"> options </button>
+        <div id="myDropdown" class="dropdown-content">
+         <script type="text/javascript">
+          function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+          }
+         </script>
+        <a href="#HR76">HR76</a>
+        <a href="#Cool Kid's Table">Cool Kid's Table</a>
+        <a href="#Food Shack">Food Shack</a>
+        <a href="#House of Random">House of Random</a>
+        <a href="#Other">Other:</a>
+        <a href="#whatever">whatever</a>
+        <a href="#gibberish">ashbfehb</a>
+        </div>
+
+      </div>
+      <div class="submitBox"><br><br>
+      <textarea name="textarea" style="width:400px;height:40px;"></textarea>
+      </div>
       <!-- Your HTML goes here! -->
     </div>
     <div id="chats"></div>
+    <div id='roomSelect'></div>
   </body>
 </html>
+

@@ -3,7 +3,9 @@ var app = {
 };
 
 app.init = function() {
-
+  $( document ).ready(function() {
+    $('#main').find('.username', app.handleUsernameClick()).click('click');
+  });
 }
 
 app.send = function(message) {
@@ -55,6 +57,9 @@ app.renderRoom = function(room) {
   var $roomSelect = $('<div class="roomSelect"></div>');
   var $room = $('<div></div>');
   $('#roomSelect').append($room);
+}
+
+app.handleUsernameClick = function(){
 }
 
 

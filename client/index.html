@@ -7,6 +7,7 @@
 
     <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
     <script>
       // YOU DO NOT NEED TO EDIT THIS CODE
       if (!/(&|\?)username=/.test(window.location.search)) {
@@ -42,14 +43,21 @@
         <a href="#gibberish">ashbfehb</a>
         </div>
 
+      </div>  
+ 
+      <div class="content">
+        <input data-mini="true" id="message" size="60" type="text" />
+      <div class="right">
+        <input data-icon="plus" data-inline="true" data-mini="true" name="commit" type="submit" value="submit" />
       </div>
-      <div class="submitBox"><br><br>
-      <textarea name="textarea" style="width:400px;height:40px;"></textarea>
-      </div>
+      </div>    
+
       <!-- Your HTML goes here! -->
     </div>
+   
     <div id="chats"></div>
     <div id='roomSelect'></div>
+    
   </body>
 </html>
 

@@ -5,7 +5,9 @@ var app = {
 app.init = function() {
   $( document ).ready(function() {
     $('#main').find('.username', app.handleUsernameClick()).click('click');
+    $('#send .submit').click('submit', app.handleSubmit());
   });
+
 }
 
 app.send = function(message) {
@@ -60,6 +62,9 @@ app.renderRoom = function(room) {
 }
 
 app.handleUsernameClick = function(){
+}
+
+app.handleSubmit = function(){
 }
 
 

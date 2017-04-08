@@ -142,7 +142,7 @@ form input[type=text] {
   font-size: 16px;
 }
 
-.right {
+.submit {
   float: right;
   padding-bottom: 0;
   width: 75px; /* RC */

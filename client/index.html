@@ -34,28 +34,32 @@
             document.getElementById("myDropdown").classList.toggle("show");
           }
          </script>
-        <a href="#HR76">HR76</a>
-        <a href="#Cool Kid's Table">Cool Kid's Table</a>
-        <a href="#Food Shack">Food Shack</a>
-        <a href="#House of Random">House of Random</a>
-        <a href="#Other">Other:</a>
-        <a href="#whatever">whatever</a>
-        <a href="#gibberish">ashbfehb</a>
+        <div id='tables'></div>
         </div>
-
-      </div>  
- 
-      <div class="content">
-        <input data-mini="true" id="message" size="60" type="text" />
-      <div>
-        <input class="submit" id="send" data-icon="plus" data-inline="true" data-mini="true" name="commit" type="submit" value="submit" />
+        </div>  
+     
+     
+        <form id="message" >
+          <input name="usermsg" type="text" id="usermsg" size="63" />
+          <input name="usermsg" type="submit"  id="submitmsg" />
+        </form>
+       
       </div>
-      </div>    
 
+ <!--      <div class="content">
+        <input data-mini="true" id="message" size="60" type="text" />
+        <div>
+          <input class="submit" id="send" data-icon="plus" data-inline="true" data-mini="true" name="commit" type="submit" value="submit" />
+        </div>
+      </div>  -->   
       <!-- Your HTML goes here! -->
     </div>
    
-    <div id="chats"></div>
+    <div id="chats">
+
+      <div id="chatbox"></div>
+
+    </div>
     <div id='roomSelect'></div>
     
   </body>

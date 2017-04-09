@@ -1,14 +1,14 @@
 var app = { 
-  server: "http://parse.sfm6.hackreactor.com/chatterbox/classes/messages"
+  server: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
+  newRooms: {},
 };
 
 app.init = function() {
-  $( document ).ready(function() {
-    $('#main').find('.username', app.handleUsernameClick()).click('click');
-    $('#send .submit').click('submit', app.handleSubmit());
-  });
+  app.fetch();
 
-}
+
+
+};
 
 app.send = function(message) {
   $.ajax({
@@ -19,6 +19,8 @@ app.send = function(message) {
     contentType: 'application/json',
     success: function (data) {
       console.log('chatterbox: Message sent');
+      app.renderMessage(data);
+      // $('#chatbox').append(message.text);
     },
     error: function (data) {
       // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -28,20 +30,56 @@ app.send = function(message) {
 };
 
 app.fetch = function() {
-  $.ajax({
-  // This is the url you should use to communicate with the parse API server.
-    url: this.server,
-    type: 'GET',
-    data: JSON.stringify(message), 
-    contentType: 'application/json',
-    success: function (data) {
-      console.log('chatterbox: Message sent');
-    },
-    error: function (data) {
-    // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
-    console.error('chatterbox: Failed to send message', data);
+  $.get( app.server, function(data) {
+
+    for ( var i = 0; i < data.results.length; i ++ ) {
+      if ( Object.keys(app.newRooms).includes(data.results[i].roomname) ) {
+        app.newRooms[data.results[i].roomname].push(data.results[i]);
+
+      } else {
+        app.newRooms[data.results[i].roomname] = []; 
+      }
+    }
+  
+    for ( var key in app.newRooms ) {
+      app.renderRoom(key);
+      for (var i = 0; i < app.newRooms[key].length; i++) {
+        console.log(app.newRooms);
+        app.renderMessage(app.newRooms[key][i]);
+      }
     }
   });
+};
+
+var sanitizeObj = {
+  '&': '&#x27',
+  '<': '&#t31',
+  '>': '&#y76',
+  '\"': '&#e12',
+  '\'': '&#l54',
+  '`': '&#x32',
+  '!': '&#p87',
+  '@': '&#o69',
+  '$': '&#n49',
+  '%': '&#k17',
+  '(': '&#y90',
+  ')': '&#v80',
+  '=': '&#d70',
+  '+': '&#a65',
+  '{': '&#g09',
+  '}': '&#cy6',
+  '[': '&#j34',
+  ']': '&#hih'
+};
+
+app.sanitize = function(inputString) {
+  $splitStr = inputString.split('');
+  $splitStr.map(function(char) {
+    if (sanitizeObj.char !== undefined) {
+      $splitStr[char] = sanitizeObj[char];
+    }
+  });
+  return $splitStr.join('');
 };
 
 app.clearMessages = function() {
@@ -49,25 +87,45 @@ app.clearMessages = function() {
 };
 
 app.renderMessage = function(message) { 
-  var $chat = $('<div class="message"></div>');
-  var $message = $('<div></div>');
-  $message.text(message.text);
-  $('#chats').append($message);
-}
+  var messageText = app.sanitize(message.text);
+  var messageUser = app.sanitize(message.username);
+  var $userMessage = $('<li class="messageBoard"><h2>' + messageUser + '<p class="time">' + message.updatedAt + '</p></h2><p>' + messageText + '</p></li>');
+  $('#chatbox').append($userMessage);
+};
 
 app.renderRoom = function(room) {
-  var $roomSelect = $('<div class="roomSelect"></div>');
-  var $room = $('<div></div>');
-  $('#roomSelect').append($room);
-}
+  var $room = $('<div class=' + room + '></div>');
+  var $rooomButton = $('<a href=#' + room + '>' + room + '</a>');
+  $('#tables').append($room);
+  $('.dropdown-content').append($rooomButton);
+};
 
-app.handleUsernameClick = function(){
-}
+app.handleUsernameClick = function() { 
+};
 
-app.handleSubmit = function(){
-}
+app.handleSubmit = function() {
+  //needs to call the send function and post message to the server 
+  //  
+};
+
+app.handleRoomswitch = function() {
+  $('.dropbtn').on('click', function() {
+    var clickedRoom = $(this).text('room');
+    app.fetch();
+    for ( var key in app.newRooms ) {
+      if ( key === clickedRoom ) {
+        app.newRooms[key].forEach((x) => app.renderMessage(x));
+      }
+    }
+  });
+};
 
 
+$( document ).ready(function() {
+  app.init();
+  // $('#main').find('.username', app.handleUsernameClick()).click('click');
+  // $('#send .submit').click('.submit', app.handleSubmit());
+});
 
 
 
